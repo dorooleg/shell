@@ -30,6 +30,11 @@ int main()
     {
         std::vector<std::string> commands;
         split(input, '|', commands);
+
+        if (!commands.empty() && commands[0] == "exit")
+        {
+            exit(0);
+        }
         
         std::vector<int[2]> pfds(commands.size() - 1);
         for (auto& pfd : pfds)
