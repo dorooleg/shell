@@ -72,6 +72,6 @@ int main()
             close(pfd[1]);
         }
         
-        wait(NULL);
+        wait(nullptr);
     }
 }
