@@ -7,6 +7,8 @@
 #include <unistd.h>
 #include <sstream>
 #include <sys/wait.h>
+#include "Environment.h"
+#include "Preprocessor.h"
 
 void split(const std::string& s, char delim, std::vector<std::string>& tokens)
 {
@@ -25,9 +27,13 @@ void split(const std::string& s, char delim, std::vector<std::string>& tokens)
 
 int main()
 {
+    Preprocessor preprocessor;
+    Environment environment;
     std::string input;
     while (std::getline(std::cin, input))
     {
+        preprocessor.substitute_variables(environment, input);
+        preprocessor.update_environment(environment, input);
         std::vector<std::string> commands;
         split(input, '|', commands);
 
