@@ -55,7 +55,7 @@ int main(int argc, char** argv)
         int size_output = 1;
         if (vm.count("-A")) 
         {
-            size_print = vm["-A"].as<int>() + 1;
+            size_output = vm["-A"].as<int>() + 1;
         } 
 
         if (size_output < 0)
