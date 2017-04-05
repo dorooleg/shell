@@ -8,10 +8,10 @@
 #include <deque>
 #include "boost/program_options.hpp" 
 
-bool is_match(const std::string& regex, const std::string& text);
+static bool is_match(const std::string& regex, const std::string& text);
 
 template<typename InputStream>
-void process_grep(InputStream&& input, const std::string& regex, size_t size_output);
+static void process_grep(InputStream&& input, const std::string& regex, size_t size_output, bool case_sensitivity);
  
 int main(int argc, char** argv)
 { 
@@ -68,14 +68,14 @@ int main(int argc, char** argv)
 
         if (positional_parameters.size() == 1)
         {
-            process_grep(std::cin, regex, size_output);
+            process_grep(std::cin, regex, size_output, !vm.count("-i"));
             return EXIT_SUCCESS;
         }
 
         auto it = ++positional_parameters.begin();
         while (it != positional_parameters.end())
         {
-            process_grep(std::ifstream(*it), regex, size_output);
+            process_grep(std::ifstream(*it), regex, size_output, !vm.count("-i"));
             ++it;
         }
 
@@ -87,7 +87,7 @@ int main(int argc, char** argv)
     return EXIT_FAILURE;
 }
 
-bool is_match(const std::string& regex, const std::string& text)
+static bool is_match(const std::string& regex, const std::string& text)
 {
     const std::regex base_regex(regex);
     std::smatch base_match;
@@ -95,12 +95,15 @@ bool is_match(const std::string& regex, const std::string& text)
 }
 
 template<typename InputStream>
-void process_grep(InputStream&& input, const std::string& regex, size_t size_output)
+static void process_grep(InputStream&& input, const std::string& regex, size_t size_output, bool case_sensitivity)
 {
     std::string line;
     std::deque<std::string> queue;
     while (std::getline(input, line))
     {
+        if (!case_sensitivity)
+            std::transform(line.begin(), line.end(), line.begin(), ::tolower);
+        
         queue.push_back(line);
         if (queue.size() == size_output && is_match(regex, queue.front()))
         {

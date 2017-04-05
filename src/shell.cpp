@@ -51,7 +51,7 @@ int main()
             }
         }
 
-        for (int i = 0; i < commands.size(); i++)
+        for (size_t i = 0; i < commands.size(); i++)
         {
             int pid = fork();
             if (pid == 0)
@@ -59,7 +59,7 @@ int main()
                 if (i != 0)
                     dup2(pfds[i - 1][0], 0);
 
-                if (i != commands.size() - 1)
+                if ((int)i != (int)commands.size() - 1)
                     dup2(pfds[i][1], 1);
 
                 for (const auto& pfd : pfds)
