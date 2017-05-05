@@ -1,5 +1,4 @@
-#ifndef ENVIRONMENT_H
-#define ENVIRONMENT_H 
+#pragma once
 
 #include <string>
 #include <map>
@@ -20,5 +19,3 @@ public:
 private:
     mutable std::map<std::string, std::string> variables_;
 };
-
-#endif //ENVIRONMENT_H 

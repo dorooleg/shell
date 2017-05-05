@@ -1,5 +1,4 @@
-#ifndef PREPROCESS_H
-#define PREPROCESS_H
+#pragma once
 
 #include "Environment.h"
 
@@ -16,5 +15,3 @@ public:
      */
     void update_environment(Environment& environment, const std::string& str);
 };
-
-#endif //PREPROCESS_H
