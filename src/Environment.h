@@ -3,6 +3,9 @@
 #include <string>
 #include <map>
 
+/*
+* Container for environment variables
+*/
 class Environment
 {
 public:

@@ -27,13 +27,12 @@ void split(const std::string& s, char delim, std::vector<std::string>& tokens)
 
 int main()
 {
-    Preprocessor preprocessor;
     Environment environment;
     std::string input;
     while (std::getline(std::cin, input))
     {
-        preprocessor.substitute_variables(environment, input);
-        preprocessor.update_environment(environment, input);
+        Preprocessor::substitute_variables(environment, input);
+        Preprocessor::update_environment(environment, input);
         std::vector<std::string> commands;
         split(input, '|', commands);
 

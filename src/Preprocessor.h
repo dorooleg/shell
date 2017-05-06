@@ -2,16 +2,19 @@
 
 #include "Environment.h"
 
+/*
+* Preprocessing shell line. Working with environment variables
+*/
 class Preprocessor
 {
 public:
     /*
      * Substiute environment variables 
      */
-    void substitute_variables(const Environment& environment, std::string& str);
+    static void substitute_variables(const Environment& environment, std::string& str);
 
     /*
      * Update environmetn variables
      */
-    void update_environment(Environment& environment, const std::string& str);
+    static void update_environment(Environment& environment, const std::string& str);
 };
